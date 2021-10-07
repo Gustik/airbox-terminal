@@ -2,7 +2,7 @@
   <div id="header">
     <table>
       <tr>
-      <td><img alt="Vue logo" src="@/assets/logo.svg"  width="300" ></td>
+      <td><img alt="Vue logo" src="@/assets/logo.jpg"  width="300" ></td>
       <td><LocaleSwitcher /></td>
       </tr>
     </table>
@@ -11,7 +11,8 @@
     <router-view/>
   </div>
   <div id="footer">
-    2021
+    Бесплатная автоматическая справочная (4112) 31-88-44 <br>
+    email: office@yks.aero
   </div>
 </template>
 
@@ -40,6 +41,7 @@ export default {
 
 
 <style>
+
 html, body, #app {
     height: 100%;
     width: 100%;
@@ -68,25 +70,34 @@ html, body, #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
+  background-color: rgb(32, 37, 55);
+  background: url('~@/assets/background.png') repeat-y;
 }
 
 #header {
-  padding: 30px;
-  height: 75px;
+  padding: 20px;
+  height: 150px;
+  background: #202537;
 }
 
 #main {
-  flex: auto;
-  background: #ECEFF5;
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  
+  flex-direction: column;
+  align-content: center;
   padding: 30px;
+  align-items: center;
+  flex: auto;
+  justify-content: center;
 }
 
 #footer {
   padding: 30px;
   height: 75px;
+  background: #202537;
+  color: white;
+  font-size: 20px;
 }
 
 </style>

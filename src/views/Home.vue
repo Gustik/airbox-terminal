@@ -1,20 +1,31 @@
 <template>
   <div class="home">
-    <HelloWorld msg="message.hello"/>
-  
-    <router-link to="/select-cell" class="button">Арендовать ячейку</router-link> <br>
-    <router-link to="/about" class="button">Получить багаж</router-link>
+    {{ $t("message.hello") }}
+    <router-link to="/select-cell" class="button main-button">{{$t("home.selectCell")}}</router-link> <br>
+    <router-link to="/about" class="button main-button">{{$t("home.getLuggage")}}</router-link>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
-  }
 }
 </script>
+
+<style scoped>
+.home {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 500px;
+  align-items: center;
+}
+
+.main-button {
+  width: 400px;
+  height: 150px;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+</style>

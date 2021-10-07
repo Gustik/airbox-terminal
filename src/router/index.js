@@ -7,7 +7,6 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  ,
   {
     path: '/select-cell',
     name: 'SelectCell',
