@@ -17,7 +17,6 @@ export default {
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 500px;
   align-items: center;
 }
 
