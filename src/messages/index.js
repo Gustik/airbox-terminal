@@ -16,7 +16,7 @@ export default {
         },
         message: {
             hello: 'привет мир!',
-            selectCell: 'Выберите ячейку'
+            selectCell: 'Выберите ячейку',
         }
     }
 }

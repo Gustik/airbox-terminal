@@ -7,9 +7,12 @@
     <div v-else>
       <table cellspacing="15">
         <tr v-for="(row,i) in cells" :key="i">
-          <td v-for="(cell,j) in row" :key="j" :class="cell.busy ? 'cell busyCell' : 'cell freeCell'">
-            {{cell.id}}
-          </td>
+            <td v-for="(cell,j) in row" :key="j" :class="cell.locked ? 'cell busyCell' : 'cell freeCell'">
+                <div v-if="cell.locked">{{cell.id}}</div>
+                <router-link v-else :to="{ name: 'SelectDays', params: { id: cell.id, price: cell.price }}">
+                    {{cell.id}}
+                </router-link>
+            </td>
         </tr>
       </table>
     </div>
@@ -38,9 +41,9 @@ export default {
     async fetchCells() {     
       await this.timeout(1000)
       this.cells = [
-        [{id:11, busy: true}, {id:12, busy: false}, {id:13, busy: false} ],
-        [{id:21, busy: false}, {id:22, busy: false}, {id:23, busy: false} ],
-        [{id:31, busy: false}, {id:32, busy: true}, {id:33, busy: false} ],
+        [{id:11, locked: true, price: 100}, {id:12, locked: false, price: 100}, {id:13, locked: false, price: 100} ],
+        [{id:21, locked: false, price: 100}, {id:22, locked: false, price: 100}, {id:23, locked: false, price: 100} ],
+        [{id:31, locked: false, price: 100}, {id:32, locked: true, price: 100}, {id:33, locked: false, price: 100} ],
       ]
       this.loading = false
     }
