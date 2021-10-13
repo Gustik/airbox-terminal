@@ -2,7 +2,10 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    lang: 'en'
+    locale: 'en',
+    cell: 0,
+    days: 0,
+    phone: '',
   },
   mutations: {
   },

@@ -18,7 +18,9 @@
     </div>
     <div class="bottom-nav">
       <router-link to="/select-cell" class="button">Назад</router-link>
-      <router-link v-if="canNext" to="/select-cell" class="button">Продолжить</router-link>
+      <router-link v-if="canNext" 
+        :to="{ name: 'Phone', params: { id: $route.params.id, price: $route.params.price, days: days }}" 
+        class="button">Продолжить</router-link>
     </div>
   </div>
 </template>
@@ -41,8 +43,6 @@ export default {
     return {
       days: '1',
       maxLength: 3,
-      cells: [],
-      loading: true
     }
   },
   methods: {
