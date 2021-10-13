@@ -13,8 +13,8 @@
     </div>
     
     <div class="bottom-nav">
-      <router-link :to="{ name: 'SelectDays', params: { id: $route.params.id, price: $route.params.price }}" class="button">Назад</router-link>
-      <router-link v-if="canNext" to="/select-days" class="button">Продолжить</router-link>
+      <router-link to="/select-days" class="button">Назад</router-link>
+      <router-link v-if="canNext" to="/pay-method" class="button" @click="savePhone">Продолжить</router-link>
     </div>
   </div>
 </template>
@@ -45,6 +45,9 @@ export default {
     },
     onReset() {
       this.phoneNumber = "";
+    },
+    savePhone() {
+      this.$store.commit('setPhone', this.phoneNumber)
     }
   },
 }

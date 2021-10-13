@@ -9,7 +9,7 @@
         <tr v-for="(row,i) in cells" :key="i">
             <td v-for="(cell,j) in row" :key="j" :class="cell.locked ? 'cell busyCell' : 'cell freeCell'">
                 <div v-if="cell.locked">{{cell.id}}</div>
-                <router-link v-else :to="{ name: 'SelectDays', params: { id: cell.id, price: cell.price }}">
+                <router-link @click="saveData(cell)" v-else to="/select-days">
                     {{cell.id}}
                 </router-link>
             </td>
@@ -46,6 +46,10 @@ export default {
         [{id:31, locked: false, price: 100}, {id:32, locked: true, price: 100}, {id:33, locked: false, price: 100} ],
       ]
       this.loading = false
+    },
+    saveData(cell) {
+      this.$store.commit('setCell', cell.id)
+      this.$store.commit('setPrice', cell.price)
     }
   },
 }

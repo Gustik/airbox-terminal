@@ -6,8 +6,24 @@ export default createStore({
     cell: 0,
     days: 0,
     phone: '',
+    price: 0,
   },
   mutations: {
+    setLocale(state, locale) {
+      state.locale = locale
+    },
+    setCell(state, cell) {
+      state.cell = cell
+    },
+    setDays(state, days) {
+      state.days = days
+    },
+    setPhone(state, phone) {
+      state.phone = phone
+    },
+    setPrice(state, price) {
+      state.price = price
+    }
   },
   actions: {
   },

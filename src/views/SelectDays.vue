@@ -1,7 +1,7 @@
 <template>
   <div class="select-days">
-    <h1>Вы выбрали ячейку № {{ $route.params.id }}</h1>
-    <h4>Стоимость за сутки {{ $route.params.price }} рублей</h4>
+    <h1>Вы выбрали ячейку № {{ this.$store.state.cell }}</h1>
+    <h4>Стоимость за сутки {{ this.$store.state.price }} рублей</h4>
     <div class="container">
       <div class="left-bar">
         <h2>Количество суток</h2>
@@ -18,9 +18,7 @@
     </div>
     <div class="bottom-nav">
       <router-link to="/select-cell" class="button">Назад</router-link>
-      <router-link v-if="canNext" 
-        :to="{ name: 'Phone', params: { id: $route.params.id, price: $route.params.price, days: days }}" 
-        class="button">Продолжить</router-link>
+      <router-link v-if="canNext" to="/phone" class="button" @click="saveDays">Продолжить</router-link>
     </div>
   </div>
 </template>
@@ -33,7 +31,7 @@ export default {
   computed: {
     amount: function () {
       if (this.days.length == 0) return 0
-      return parseInt(this.$route.params.price) * parseInt(this.days)
+      return parseInt(this.$store.state.price) * parseInt(this.days)
     },
     canNext: function () {
       return this.amount > 0
@@ -55,6 +53,9 @@ export default {
     },
     onReset() {
       this.days = "";
+    },
+    saveDays() {
+      this.$store.commit('setDays', this.days)
     }
   },
 }

@@ -13,14 +13,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "select-cell" */ '../views/SelectCell.vue')
   },
   {
-    path: '/select-days/:id/:price',
+    path: '/select-days',
     name: 'SelectDays',
     component: () => import(/* webpackChunkName: "select-cdays" */ '../views/SelectDays.vue')
   },
   {
-    path: '/phone/:id/:price/:days',
+    path: '/phone',
     name: 'Phone',
     component: () => import(/* webpackChunkName: "phone" */ '../views/Phone.vue')
+  },
+  {
+    path: '/pay-method',
+    name: 'PayMethod',
+    component: () => import(/* webpackChunkName: "pay-method" */ '../views/PayMethod.vue')
   },
 ]
 

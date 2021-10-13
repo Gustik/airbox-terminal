@@ -2,7 +2,7 @@
   <div class="home">
     {{ $t("message.hello") }}
     <router-link to="/select-cell" class="button main-button">{{$t("home.selectCell")}}</router-link> <br>
-    <router-link to="/about" class="button main-button">{{$t("home.getLuggage")}}</router-link>
+    <router-link to="/select-cell" class="button main-button">{{$t("home.getLuggage")}}</router-link>
   </div>
 </template>
 <script>
