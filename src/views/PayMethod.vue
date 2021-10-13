@@ -11,8 +11,8 @@
       </div>
       <div class="methods">
         <br>
-        <router-link to="/select-cell" class="button main-button">Банковской картой</router-link>
-        <router-link to="/select-cell" class="button main-button">Наличными</router-link>
+        <router-link to="/pay-card" class="button main-button">Банковской картой</router-link>
+        <router-link to="/pay-cash" class="button main-button">Наличными</router-link>
       </div>
     </div>
     <div class="bottom-nav">

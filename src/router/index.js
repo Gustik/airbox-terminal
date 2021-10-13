@@ -27,6 +27,16 @@ const routes = [
     name: 'PayMethod',
     component: () => import(/* webpackChunkName: "pay-method" */ '../views/PayMethod.vue')
   },
+  {
+    path: '/pay-card',
+    name: 'PayCard',
+    component: () => import(/* webpackChunkName: "pay-card" */ '../views/PayCard.vue')
+  },
+  {
+    path: '/pay-cash',
+    name: 'PayCash',
+    component: () => import(/* webpackChunkName: "pay-cash" */ '../views/PayCash.vue')
+  },
 ]
 
 const router = createRouter({
