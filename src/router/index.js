@@ -37,6 +37,11 @@ const routes = [
     name: 'PayCash',
     component: () => import(/* webpackChunkName: "pay-cash" */ '../views/PayCash.vue')
   },
+  {
+    path: '/baggage-claim',
+    name: 'BaggageClaim',
+    component: () => import(/* webpackChunkName: "baggage-claim" */ '../views/BaggageClaim.vue')
+  },
 ]
 
 const router = createRouter({
