@@ -4,7 +4,7 @@
     
     <div class="container">
       <div class="left-bar">
-        <h3>Вы выбрали ячейку № {{cell}}</h3>
+        <h3>Вы выбрали ячейку № {{cellName}}</h3>
         <h3>Количество суток хранения: {{days}}</h3>
         <h3>Общая стоимость: {{amount}}</h3>
         <h3>Контактный телефон: +{{phone}}</h3>
@@ -28,8 +28,8 @@ export default {
     canNext() {
       return false
     },
-    cell() {
-      return this.$store.state.cell
+    cellName() {
+      return this.$store.state.cellName
     },
     days() {
       return this.$store.state.days

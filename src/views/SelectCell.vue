@@ -5,22 +5,22 @@
       loading
     </div>
     <div v-else>
-      <table cellspacing="15">
-        <tr v-for="(row,i) in cells" :key="i">
-            <td v-for="(cell,j) in row" :key="j" :class="cell.locked ? 'cell busyCell' : 'cell freeCell'">
-                <div v-if="cell.locked">{{cell.id}}</div>
-                <router-link @click="saveData(cell)" v-else to="/select-days">
-                    {{cell.id}}
-                </router-link>
-            </td>
-        </tr>
-      </table>
+      <div class="cells-container">
+        <div v-for="(cell, i) in cells" :key="i" :class="cell.busy ? 'cell busyCell' : 'cell freeCell'">
+          
+          <div v-if="cell.locked">{{cell.cellName}}</div>
+          <router-link @click="saveData(cell)" v-else to="/select-days">
+              {{cell.cellName}}
+          </router-link>
+        </div>
+      </div>
     </div>
     <br>
     <router-link to="/" class="button">Назад</router-link>
   </div>
 </template>
 <script>
+import api from '@/api'
 
 export default {
   name: 'SelectCell',
@@ -38,17 +38,15 @@ export default {
     timeout(ms) {
       return new Promise(resolve => setTimeout(resolve, ms))
     },
-    async fetchCells() {     
-      await this.timeout(1000)
-      this.cells = [
-        [{id:11, locked: true, price: 100}, {id:12, locked: false, price: 100}, {id:13, locked: false, price: 100} ],
-        [{id:21, locked: false, price: 100}, {id:22, locked: false, price: 100}, {id:23, locked: false, price: 100} ],
-        [{id:31, locked: false, price: 100}, {id:32, locked: true, price: 100}, {id:33, locked: false, price: 100} ],
-      ]
+    async fetchCells() {    
+      const data = await api.cellList()
+      
+      this.cells = data.cells
       this.loading = false
     },
     saveData(cell) {
-      this.$store.commit('setCell', cell.id)
+      this.$store.commit('setCell', cell.cellId)
+      this.$store.commit('setCellName', cell.cellName)
       this.$store.commit('setPrice', cell.price)
     }
   },
@@ -61,11 +59,27 @@ export default {
   flex-direction: column;
   text-align: center;
   align-items: center;
+  width: 650px;
 }
+
+.cells-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
 .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50px;
   height: 50px;
-
+  margin: 10px;
+}
+.cell a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
 }
 
 .busyCell {

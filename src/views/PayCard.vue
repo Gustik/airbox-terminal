@@ -1,6 +1,6 @@
 <template>
   <div class="pay-card">
-    <h1>Ячейка № {{ this.$store.state.cell }}</h1>
+    <h1>Ячейка № {{ this.$store.state.cellName }}</h1>
     <h2>К оплате {{ amount }}</h2>
     <h3>Вставьте карту</h3>
     <div class="bottom-nav">

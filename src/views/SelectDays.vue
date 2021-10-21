@@ -1,6 +1,6 @@
 <template>
   <div class="select-days">
-    <h1>Вы выбрали ячейку № {{ this.$store.state.cell }}</h1>
+    <h1>Вы выбрали ячейку № {{ this.$store.state.cellName }}</h1>
     <h4>Стоимость за сутки {{ this.$store.state.price }} рублей</h4>
     <div class="container">
       <div class="left-bar">
