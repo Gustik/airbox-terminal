@@ -46,6 +46,11 @@ async function cellList() {
   return data
 }
 
+async function cellLoad(cellId, phone, days) {
+  const { data }  = await axios.get(`${backendUrl}/cell/load?cellId=${cellId}&days=${days}&phone=${phone}`)
+  return data
+}
+
 export default {
   pc_session_open,
   pc_session_close,
@@ -53,5 +58,6 @@ export default {
   pc_get_status_validator,
   pc_validator_start,
   pc_validator_stop,
-  cellList
+  cellList,
+  cellLoad,
 }
