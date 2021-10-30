@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import api from '@/api'
+
 export default {
   name: 'PayCash',
   computed: {
@@ -22,7 +24,17 @@ export default {
     return {
     }
   },
+  created() {
+    this.start()
+  },
   methods: {
+    async start() {    
+      const session = await api.pc_session_open()
+      const validattor = await api.pc_validator_start()
+      
+      console.log(session)
+      console.log(validattor)
+    },
   },
 }
 </script>

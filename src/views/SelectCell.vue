@@ -8,7 +8,7 @@
       <div class="cells-container">
         <div v-for="(cell, i) in cells" :key="i" :class="cell.busy ? 'cell busyCell' : 'cell freeCell'">
           
-          <div v-if="cell.locked">{{cell.cellName}}</div>
+          <div v-if="cell.busy">{{cell.cellName}}</div>
           <router-link @click="saveData(cell)" v-else to="/select-days">
               {{cell.cellName}}
           </router-link>
