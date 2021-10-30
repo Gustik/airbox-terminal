@@ -2,39 +2,40 @@ import axios from "axios"
 
 const backendUrl = 'http://localhost:20080/v1'
 const pc_url = 'http://localhost:8888/devices'
+const parseString = require('xml2js').parseString;
 
 async function pc_session_open() {
   const { data }  = await axios.get(pc_url + "?method=session_open")
-  return data
+  return parseString(data)
 }
 
 async function pc_session_close() {
   const { data }  = await axios.get(pc_url + "?method=session_close")
-  return data
+  return parseString(data)
 }
 
 // Получить полный статус
 async function pc_get_status() {
   const { data }  = await axios.get(pc_url + "?method=get_status")
-  return data
+  return parseString(data)
 }
 
 // Получить статус купюроприемника
 async function pc_get_status_validator() {
   const { data }  = await axios.get(pc_url + "?method=get_status_validator")
-  return data
+  return parseString(data)
 }
 
 // Включить купюроприемник
 async function pc_validator_start() {
   const { data }  = await axios.get(pc_url + "?method=validator_start")
-  return data
+  return parseString(data)
 }
 
 // Выключить купюроприемник
 async function pc_validator_stop() {
   const { data }  = await axios.get(pc_url + "?method=validator_stop")
-  return data
+  return parseString(data)
 }
 
 async function cellList() {

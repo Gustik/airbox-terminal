@@ -26,13 +26,15 @@ export default {
   name: 'SelectCell',
   data() {
     return {
-      cells: [],
+      //cells: [],
+      cells: [{'id': 1, 'cellName': 1, 'price': 100, 'cellAddress': 1, 'busy': false}],
       loading: true
     }
   },
   created() {
-    this.fetchCells()
+    //this.fetchCells()
     //console.log(this.cells[0])
+    this.loading = false
   },
   methods: {
     timeout(ms) {
