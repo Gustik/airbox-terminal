@@ -4,38 +4,41 @@ const backendUrl = 'http://localhost:20080/v1'
 const pc_url = 'http://localhost:8888/devices'
 const parseString = require('xml2js').parseString;
 
+async function pc_request(method) {
+  const { data }  = await axios.get(pc_url + "?method=" + method)
+  var json
+  parseString(data, function (err, result) {
+    json = result
+  })
+  return json.Response
+}
+
 async function pc_session_open() {
-  const { data }  = await axios.get(pc_url + "?method=session_open")
-  return parseString(data)
+  return pc_request('session_open')
 }
 
 async function pc_session_close() {
-  const { data }  = await axios.get(pc_url + "?method=session_close")
-  return parseString(data)
+  return pc_request('session_close')
 }
 
 // Получить полный статус
 async function pc_get_status() {
-  const { data }  = await axios.get(pc_url + "?method=get_status")
-  return parseString(data)
+  return pc_request('get_status')
 }
 
 // Получить статус купюроприемника
 async function pc_get_status_validator() {
-  const { data }  = await axios.get(pc_url + "?method=get_status_validator")
-  return parseString(data)
+  return pc_request('get_status_validator')
 }
 
 // Включить купюроприемник
 async function pc_validator_start() {
-  const { data }  = await axios.get(pc_url + "?method=validator_start")
-  return parseString(data)
+  return pc_request('validator_start')
 }
 
 // Выключить купюроприемник
 async function pc_validator_stop() {
-  const { data }  = await axios.get(pc_url + "?method=validator_stop")
-  return parseString(data)
+  return pc_request('validator_stop')
 }
 
 async function cellList() {
