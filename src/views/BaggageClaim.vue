@@ -28,6 +28,8 @@ export default {
     return {
       pin: '',
       maxLength: 6,
+      isFinished: false,
+      code: '',
     }
   },
   methods: {
@@ -41,6 +43,35 @@ export default {
     onReset() {
       this.pin = "";
     },
+
+    timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    },
+    async start() {    
+      const session = await api.pc_session_open()
+      const scanner = await api.pc_scaner_on()
+      console.log(session)
+      console.log(scanner)
+
+      while(!this.isFinished) {
+        const scanner = await api.pc_get_status_scanner()
+        if(scanner.Status === 0 && scanner.IsStarted === 'False' && scanner.IsError === 'False') {
+          this.code = scanner.LastCode
+          this.isFinished = true
+          api.pc_scaner_off()
+          api.session_close()
+
+          console.log(this.code)
+
+          // Запрос на проверку кода
+          // Если все ок открываем ячейку
+          // Если немного просрочено, нужно внести еще денюшек
+          // Если багаж унесли на склад, то оповещаем клиента об этом
+        }
+
+        await this.timeout(500)
+      }
+    }
   },
 }
 </script>

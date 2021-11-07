@@ -41,11 +41,28 @@ async function pc_validator_stop() {
   return pc_request('validator_stop')
 }
 
+// Включить сканер
+async function pc_scaner_on() {
+  return pc_request('scaner_on')
+}
+
+// Метод получения статуса сканера и полседнего считанного в сессии кода
+async function pc_get_status_scaner() {
+  return pc_request('get_status_scaner')
+}
+
+// Выключить сканер
+async function pc_scaner_off() {
+  return pc_request('scaner_off')
+}
+
+// Список доступных ячеек
 async function cellList() {
   const { data }  = await axios.get(backendUrl + "/cell/list")
   return data
 }
 
+// Загрузка багажа
 async function cellLoad(cellId, phone, days) {
   const { data }  = await axios.get(`${backendUrl}/cell/load?cellId=${cellId}&days=${days}&phone=${phone}`)
   return data
@@ -58,6 +75,9 @@ export default {
   pc_get_status_validator,
   pc_validator_start,
   pc_validator_stop,
+  pc_scaner_on,
+  pc_scaner_off,
+  pc_get_status_scaner,
   cellList,
   cellLoad,
 }
