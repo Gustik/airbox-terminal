@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     locale: 'en',
-    cell: '',
+    cellId: '',
     cellName: '',
     days: 0,
     phone: '',
@@ -13,8 +13,8 @@ export default createStore({
     setLocale(state, locale) {
       state.locale = locale
     },
-    setCell(state, cell) {
-      state.cell = cell
+    setCellId(state, cellId) {
+      state.cellId = cellId
     },
     setCellName(state, name) {
       state.cellName = name

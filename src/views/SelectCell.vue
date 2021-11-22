@@ -26,15 +26,15 @@ export default {
   name: 'SelectCell',
   data() {
     return {
-      //cells: [],
-      cells: [{'id': 1, 'cellName': 1, 'price': 100, 'cellAddress': 1, 'busy': false}],
+      cells: [],
+      //cells: [{'cellId': 1, 'cellName': 1, 'price': 100, 'cellAddress': 1, 'busy': false}],
       loading: true
     }
   },
   created() {
-    //this.fetchCells()
+    this.fetchCells()
     //console.log(this.cells[0])
-    this.loading = false
+    this.loading = true
   },
   methods: {
     timeout(ms) {
@@ -47,7 +47,8 @@ export default {
       this.loading = false
     },
     saveData(cell) {
-      this.$store.commit('setCell', cell.cellId)
+      api.cellReserve(cell.cellId)
+      this.$store.commit('setCellId', cell.cellId)
       this.$store.commit('setCellName', cell.cellName)
       this.$store.commit('setPrice', cell.price)
     }

@@ -5,7 +5,7 @@
     
     <h3>Внесите наличные</h3>
 
-    <h2>Принято {{ stackedAmount }}</h2>
+    <h2>Принято {{ totalAmount }}</h2>
     <div class="bottom-nav">
       <router-link to="/pay-method" class="button">Назад</router-link>
       <div v-if="isFinished" class="button" @click="pay">Оплатить</div>
@@ -20,20 +20,14 @@ export default {
   name: 'PayCash',
   computed: {
     amount() {
-      return this.$store.state.days * this.$store.state.price 
+      //return this.$store.state.days * this.$store.state.price 
+      return 100
     },
-    stackedAmount() {
-      var sum = 0
-      this.stackedBanknotes.forEach(banknote => {
-        sum += parseInt(banknote.Nominal)
-      })
-      return sum
-    }
   },
   data() {
     return {
       isFinished: false,
-      stackedBanknotes: []
+      totalAmount: 0
     }
   },
   created() {
@@ -44,34 +38,42 @@ export default {
       return new Promise(resolve => setTimeout(resolve, ms))
     },
     async start() {    
-      const session = await api.pc_session_open()
-      const validattor = await api.pc_validator_start()
+      /*const session = await api.pc_session_open()
+      const validator = await api.pc_validator_start()
       console.log(session)
-      console.log(validattor)
+      console.log(validator)*/
       
       while(!this.isFinished) {
-        const status = await api.pc_get_status()
-        // Если есть купюры в купюроприемнике
-        if('StackedBanknotes' in status) {
-          status.StackedBanknotes.forEach(banknote => {
-            // Если этой банкноты у нас нет, то записываем
-            if(this.stackedBanknotes.some(b => b.StackedTime !== banknote.StackedTime)){
-              this.stackedBanknotes.push(banknote)
-            }
-          })
-        }
-        if(this.stackedAmount >= this.amount) {
-          // Как только собираем нужную сумму, отключаем купюропримник
-          this.isFinished = true
-          await api.pc_validator_stop()
+        const status = await api.pc_get_status_validator()
+        const session = status.Session[0]
+        const error = status.$.Error
+        const result = status.$.Result
+        const message = status.$.Message
+
+        if(result === '1' && error === '0') {
+          this.totalAmount = parseInt(session.$.TotalAmount)
+          //console.log(this.totalAmount)
+
+          if(this.totalAmount >= this.amount) {
+            // Как только собираем нужную сумму, отключаем купюропримник
+            this.isFinished = true
+            await api.pc_validator_stop()
+            await this.pay()
+          } else {
+            await this.timeout(1000)
+          }
         } else {
-          await this.timeout(1000)
+          console.error(error, message)
         }
       }
 
     },
-    pay() {
-      
+    async pay() {
+      const days = this.$store.state.days
+      const cellId = this.$store.state.cellId
+      const phone = this.$store.state.phone
+      console.error(cellId, phone, days)
+      api.cellLoad(cellId, phone, days)
     }
   },
 }

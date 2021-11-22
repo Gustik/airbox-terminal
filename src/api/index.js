@@ -13,6 +13,7 @@ async function pc_request(method) {
   return json.Response
 }
 
+
 async function pc_session_open() {
   return pc_request('session_open')
 }
@@ -27,8 +28,17 @@ async function pc_get_status() {
 }
 
 // Получить статус купюроприемника
-async function pc_get_status_validator() {
+/*async function pc_get_status_validator() {
   return pc_request('get_status_validator')
+}*/
+
+async function pc_get_status_validator() {
+  const { data }  = await axios.get(backendUrl + "/test/validator-status")
+  var json
+  parseString(data, function (err, result) {
+    json = result
+  })
+  return json.Response
 }
 
 // Включить купюроприемник
@@ -68,6 +78,11 @@ async function cellLoad(cellId, phone, days) {
   return data
 }
 
+async function cellReserve(cellId) {
+  const { data }  = await axios.get(`${backendUrl}/cell/reserve?cellId=${cellId}`)
+  return data
+}
+
 export default {
   pc_session_open,
   pc_session_close,
@@ -80,4 +95,5 @@ export default {
   pc_get_status_scaner,
   cellList,
   cellLoad,
+  cellReserve
 }

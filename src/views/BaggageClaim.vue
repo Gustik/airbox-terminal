@@ -18,6 +18,7 @@
 
 <script>
 import Numpad from "@/components/Numpad.vue"
+import api from '@/api'
 
 export default {
   components: { Numpad },
@@ -54,7 +55,7 @@ export default {
       console.log(scanner)
 
       while(!this.isFinished) {
-        const scanner = await api.pc_get_status_scanner()
+        const scanner = await api.pc_get_status_scaner()
         if(scanner.Status === 0 && scanner.IsStarted === 'False' && scanner.IsError === 'False') {
           this.code = scanner.LastCode
           this.isFinished = true
