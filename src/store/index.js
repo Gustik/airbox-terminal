@@ -27,6 +27,13 @@ export default createStore({
     },
     setPrice(state, price) {
       state.price = price
+    },
+    reset(state) {
+      state.cellId = ''
+      state.cellName = ''
+      state.days = 0
+      state.phone = ''
+      state.price = 0
     }
   },
   actions: {

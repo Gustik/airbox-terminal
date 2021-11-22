@@ -66,6 +66,67 @@ async function pc_scaner_off() {
   return pc_request('scaner_off')
 }
 
+// Печать чека
+async function pc_printer_print(paymentType, cellName, price, days, phone) {
+  /*
+  для фискальных позиций указывается "type": "position". 
+  Чек будет открыт после первой позиции. Последующие нефискальные строки ("type": "text")
+	будут напечатаны после закрытия чека
+    поле price - цена за единицу товара\услуги в копейках
+	  поле quantity - кол-во единиц товара
+	  поле paymentObject для позиции чека может принимать значения service(Услуга) или commodity(Товар)
+	
+	для закрытия чека используется поле payments.
+	Может содержать данные о платежах 
+	"type": "electronically" - платеж картой
+	"type": "cash" - платеж наличными
+	Могут быть использованы как оба способа, так и только один. Главное условие - должна совпадать сумма платежей с суммой строк табличной части
+	"sum": "1800" - сумма платежа в копейках
+
+  data = {
+    "type": "sell", 
+    "items": [
+      {"type": "text", "text": " СТРОКА ДЛЯ ПЕЧАТИ ДО ФИСКАЛЬНОЙ ЧАСТИ"},
+      {"type": "position", "name": "Наименование товара1", "price": "1000", "quantity": "1", "paymentObject": "service/commodity"},		
+      {"type": "position", "name": "Наименование товара2", "price": "100", "quantity": "10", "paymentObject": "service/commodity"},								
+      {"type": "text", "text": " СТРОКА ДЛЯ ПЕЧАТИ ПОСЛЕ ФИСКАЛЬНОЙ ЧАСТИ"}
+    ], 
+    "payments": [
+      {
+        "type": "electronically", 
+        "sum": "200"
+      },
+      {
+        "type": "cash", 
+        "sum": "1800"
+      }
+    ]
+  }
+  */
+  const sum = price * days
+  const postData = {
+    "type": "sell", 
+    "items": [
+      {"type": "text", "text": "============"},
+      {"type": "position", "name": `Аренда ячейки № ${cellName}`, "price": `${price}`, "quantity": `${days}`, "paymentObject": "service"},		
+      {"type": "text", "text": `Номер телфона: ${phone}`}
+    ], 
+    "payments": [
+      {
+        "type": `${paymentType}`, 
+        "sum": `${sum}`
+      },
+    ]
+  }
+  console.log(postData)
+  const { data } = await axios.post(pc_url + "?method=printer_print", postData)
+  let json
+  parseString(data, function (err, result) {
+    json = result
+  })
+  return json.Response
+}
+
 // Список доступных ячеек
 async function cellList() {
   const { data }  = await axios.get(backendUrl + "/cell/list")
@@ -93,6 +154,7 @@ export default {
   pc_scaner_on,
   pc_scaner_off,
   pc_get_status_scaner,
+  pc_printer_print,
   cellList,
   cellLoad,
   cellReserve

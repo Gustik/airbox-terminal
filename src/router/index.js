@@ -38,6 +38,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "pay-cash" */ '../views/PayCash.vue')
   },
   {
+    path: '/print',
+    name: 'Print',
+    component: () => import(/* webpackChunkName: "pay-cash" */ '../views/Print.vue'),
+    props: true
+  },
+  {
     path: '/baggage-claim',
     name: 'BaggageClaim',
     component: () => import(/* webpackChunkName: "baggage-claim" */ '../views/BaggageClaim.vue')

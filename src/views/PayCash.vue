@@ -38,10 +38,10 @@ export default {
       return new Promise(resolve => setTimeout(resolve, ms))
     },
     async start() {    
-      /*const session = await api.pc_session_open()
-      const validator = await api.pc_validator_start()
-      console.log(session)
-      console.log(validator)*/
+      /*const sessionOpen = await api.pc_session_open()
+      const validatorStart = await api.pc_validator_start()
+      console.log(sessionOpen)
+      console.log(validatorStart)*/
       
       while(!this.isFinished) {
         const status = await api.pc_get_status_validator()
@@ -55,10 +55,10 @@ export default {
           //console.log(this.totalAmount)
 
           if(this.totalAmount >= this.amount) {
-            // Как только собираем нужную сумму, отключаем купюропримник
+            // Как только собираем нужную сумму, отключаем купюроприемник
             this.isFinished = true
             await api.pc_validator_stop()
-            await this.pay()
+            
           } else {
             await this.timeout(1000)
           }
@@ -72,8 +72,10 @@ export default {
       const days = this.$store.state.days
       const cellId = this.$store.state.cellId
       const phone = this.$store.state.phone
-      console.error(cellId, phone, days)
-      api.cellLoad(cellId, phone, days)
+      //console.error(cellId, phone, days)
+      await api.cellLoad(cellId, phone, days)
+      // if ok
+      this.$router.push({ name: 'Print', params: { paymentType: 'cash' } }) 
     }
   },
 }
