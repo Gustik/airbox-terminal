@@ -20,8 +20,8 @@ export default {
   name: 'PayCash',
   computed: {
     amount() {
-      //return this.$store.state.days * this.$store.state.price 
-      return 100
+      return this.$store.state.days * this.$store.state.price 
+      //return 100
     },
   },
   data() {
@@ -38,10 +38,10 @@ export default {
       return new Promise(resolve => setTimeout(resolve, ms))
     },
     async start() {    
-      /*const sessionOpen = await api.pc_session_open()
+      const sessionOpen = await api.pc_session_open()
       const validatorStart = await api.pc_validator_start()
       console.log(sessionOpen)
-      console.log(validatorStart)*/
+      console.log(validatorStart)
       
       while(!this.isFinished) {
         const status = await api.pc_get_status_validator()

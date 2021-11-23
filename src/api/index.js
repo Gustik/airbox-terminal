@@ -1,7 +1,8 @@
 import axios from "axios"
 
 const backendUrl = 'http://localhost:20080/v1'
-const pc_url = 'http://localhost:8888/devices'
+//const pc_url = 'http://localhost:8888/devices'
+const pc_url = 'http://192.168.88.80:8888/devices'
 const parseString = require('xml2js').parseString;
 
 async function pc_request(method) {
@@ -28,18 +29,18 @@ async function pc_get_status() {
 }
 
 // Получить статус купюроприемника
-/*async function pc_get_status_validator() {
-  return pc_request('get_status_validator')
-}*/
-
 async function pc_get_status_validator() {
+  return pc_request('get_status_validator')
+}
+
+/*async function pc_get_status_validator() {
   const { data }  = await axios.get(backendUrl + "/test/validator-status")
   var json
   parseString(data, function (err, result) {
     json = result
   })
   return json.Response
-}
+}*/
 
 // Включить купюроприемник
 async function pc_validator_start() {
