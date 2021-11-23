@@ -63,7 +63,7 @@ export default {
             await this.timeout(1000)
           }
         } else {
-          console.error(error, message)
+          this.error(message)
         }
       }
 
@@ -73,9 +73,17 @@ export default {
       const cellId = this.$store.state.cellId
       const phone = this.$store.state.phone
       //console.error(cellId, phone, days)
-      await api.cellLoad(cellId, phone, days)
-      // if ok
-      this.$router.push({ name: 'Print', params: { paymentType: 'cash' } }) 
+      const load = await api.cellLoad(cellId, phone, days)
+      
+      if(load.status == 200) {
+        this.$router.push({ name: 'Print', params: { paymentType: 'cash' } }) 
+      } else {
+        this.error(load.message)
+      }
+    },
+    error(msg) {
+      console.error(msg)
+      this.$router.push({ name: 'Error', params: { message: msg } }) 
     }
   },
 }

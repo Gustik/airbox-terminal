@@ -40,7 +40,13 @@ const routes = [
   {
     path: '/print',
     name: 'Print',
-    component: () => import(/* webpackChunkName: "pay-cash" */ '../views/Print.vue'),
+    component: () => import(/* webpackChunkName: "print" */ '../views/Print.vue'),
+    props: true
+  },
+  {
+    path: '/error',
+    name: 'Error',
+    component: () => import(/* webpackChunkName: "error" */ '../views/Error.vue'),
     props: true
   },
   {
