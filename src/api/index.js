@@ -1,8 +1,8 @@
 import axios from "axios"
 
-const backendUrl = 'http://localhost:20080/v1'
-//const pc_url = 'http://localhost:8888/devices'
-const pc_url = 'http://192.168.88.80:8888/devices'
+const backendUrl = 'http://192.168.88.80:20080/v1'
+const pc_url = 'http://localhost:8888/devices'
+//const pc_url = 'http://192.168.88.80:8888/devices'
 const parseString = require('xml2js').parseString;
 
 async function pc_request(method) {
